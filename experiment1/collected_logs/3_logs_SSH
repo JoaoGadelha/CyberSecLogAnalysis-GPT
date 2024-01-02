@@ -1,0 +1,11 @@
+[ssh logs]
+Dec 30 20:59:57 kali sshd[136875]: banner exchange: Connection from 192.168.92.133 port 39008: could not read protocol version
+Dec 30 20:59:58 kali sshd[136881]: Unable to negotiate with 192.168.92.133 port 39020: no matching host key type found. Their offer: ssh-dss [preauth]
+Dec 30 20:59:58 kali sshd[136887]: Unable to negotiate with 192.168.92.133 port 39026: no matching host key type found. Their offer: ssh-rsa [preauth]
+Dec 30 20:59:58 kali sshd[136889]: Connection closed by 192.168.92.133 port 39036 [preauth]
+Dec 30 20:59:58 kali sshd[136891]: Unable to negotiate with 192.168.92.133 port 39040: no matching host key type found. Their offer: ecdsa-sha2-nistp384 [preauth]
+Dec 30 20:59:58 kali sshd[136893]: Unable to negotiate with 192.168.92.133 port 39054: no matching host key type found. Their offer: ecdsa-sha2-nistp521 [preauth]
+Dec 30 20:59:58 kali sshd[136895]: Connection closed by 192.168.92.133 port 39066 [preauth]
+Dec 30 21:00:51 kali sshd[137299]: Accepted password for target from 192.168.92.133 port 52730 ssh2
+Dec 30 21:00:51 kali sshd[137299]: pam_unix(sshd:session): session opened for user target(uid=1001) by (uid=0)
+Dec 30 21:00:51 kali sshd[137299]: pam_env(sshd:session): deprecated reading of user environment enabled
