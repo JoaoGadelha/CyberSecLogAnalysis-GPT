@@ -1,0 +1,11 @@
+[Web Server Activity Log]
+192.168.92.133 - - [01/Jan/2024:14:50:26 -0300] "GET / HTTP/1.0" 200 5453 "-" "-"
+192.168.92.133 - - [01/Jan/2024:14:50:26 -0300] "GET / HTTP/1.1" 200 5434 "-" "-"
+192.168.92.133 - - [01/Jan/2024:14:51:33 -0300] "GET / HTTP/1.1" 200 1881 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:51:34 -0300] "GET /favicon.ico HTTP/1.1" 404 492 "http://192.168.92.135/" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:51:34 -0300] "GET /background.png HTTP/1.1" 200 110048 "http://192.168.92.135/" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:51:45 -0300] "GET /login/login.php HTTP/1.1" 200 1326 "http://192.168.92.135/" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:51:52 -0300] "POST /login/login.php HTTP/1.1" 200 1301 "http://192.168.92.135/login/login.php" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:52:06 -0300] "POST /login/login.php HTTP/1.1" 200 1301 "http://192.168.92.135/login/login.php" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:52:11 -0300] "POST /login/login.php HTTP/1.1" 302 340 "http://192.168.92.135/login/login.php" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+192.168.92.133 - - [01/Jan/2024:14:52:11 -0300] "GET /upload.php HTTP/1.1" 200 1121 "http://192.168.92.135/login/login.php" "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
