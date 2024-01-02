@@ -1,0 +1,5 @@
+[root user command history]
+[username: root] 59  2024-01-01 15:24:59 whoami
+[username: root] 60  2024-01-01 15:25:02 cd /root
+[username: root] 61  2024-01-01 15:25:03 ls
+[username: root] 62  2024-01-01 15:25:07 cat important_data.txt
