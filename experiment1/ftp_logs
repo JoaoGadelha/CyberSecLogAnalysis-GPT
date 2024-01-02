@@ -1,0 +1,16 @@
+[FTP logs]
+Sat Dec 30 20:59:57 2023 [pid 136870] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:57 2023 [pid 136876] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:57 2023 [pid 136877] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:57 2023 [pid 136879] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:57 2023 [pid 136880] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:57 2023 [pid 136871] [ftp] OK LOGIN: Client "::ffff:192.168.92.133", anon password "IEUser@"
+Sat Dec 30 20:59:57 2023 [pid 136878] [ftp] OK LOGIN: Client "::ffff:192.168.92.133", anon password "IEUser@"
+Sat Dec 30 20:59:58 2023 [pid 136873] [ftp] OK LOGIN: Client "::ffff:192.168.92.133", anon password "IEUser@"
+Sat Dec 30 20:59:58 2023 [pid 136906] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:58 2023 [pid 136908] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 20:59:58 2023 [pid 136910] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 21:00:01 2023 [pid 136928] CONNECT: Client "::ffff:192.168.92.133"
+Sat Dec 30 21:00:11 2023 [pid 136927] [ftp] OK LOGIN: Client "::ffff:192.168.92.133", anon password "?"
+Sat Dec 30 21:00:18 2023 [pid 137017] [ftp] OK DOWNLOAD: Client "::ffff:192.168.92.133", "/credentials_DB.txt", 28 bytes, 13.22Kbyte/sec
+Sat Dec 30 21:00:22 2023 [pid 137017] [ftp] OK DOWNLOAD: Client "::ffff:192.168.92.133", "/credentials_SSH.txt", 32 bytes, 13.60Kbyte/sec
