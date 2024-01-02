@@ -1,0 +1,3 @@
+2024-01-01 14:51:52 - 192.168.92.133 - FAILURE: Incorrect login attempt by user admin.
+2024-01-01 14:52:06 - 192.168.92.133 - FAILURE: Incorrect login attempt by user default.
+2024-01-01 14:52:11 - 192.168.92.133 - SUCCESS: User ' OR 1=1# logged in successfully.
