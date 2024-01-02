@@ -1,0 +1,14 @@
+[www-data user command history]
+[username: www-data] 2024-01-01 15:04:56    70  [2024-01-01 15:04:56] whoami
+[username: www-data] 2024-01-01 15:05:10    71  [2024-01-01 15:05:10] uname -a
+[username: www-data] 2024-01-01 15:05:14    72  [2024-01-01 15:05:14] ls -lah
+[username: www-data] 2024-01-01 15:05:19    73  [2024-01-01 15:05:19] cd /home/target
+[username: www-data] 2024-01-01 15:06:59    74  [2024-01-01 15:06:59] find . -name "*.conf" -type f
+[username: www-data] 2024-01-01 15:07:03    75  [2024-01-01 15:07:03] cat /etc/passwd
+[username: www-data] 2024-01-01 15:07:14    76  [2024-01-01 15:07:14] find . -name "*.log"
+[username: www-data] 2024-01-01 15:07:17    77  [2024-01-01 15:07:17] ps aux
+[username: www-data] 2024-01-01 15:07:20    78  [2024-01-01 15:07:20] netstat -tuln
+[username: www-data] 2024-01-01 15:07:36    79  [2024-01-01 15:07:36] cat ~/.bash_history
+[username: www-data] 2024-01-01 15:07:40    80  [2024-01-01 15:07:40] cd Desktop
+[username: www-data] 2024-01-01 15:07:47    81  [2024-01-01 15:07:47] ls -lah
+[username: www-data] 2024-01-01 15:07:57    82  [2024-01-01 15:07:57] cat credentials_change_later.txt
