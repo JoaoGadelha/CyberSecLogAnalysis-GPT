@@ -1,0 +1,2 @@
+The order of the logs follows the numbering of each file's title, meaning:
+1_iptables, 2_ftp_logs, 3_ssh_logs, and so on.
