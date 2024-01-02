@@ -1,1 +1,5 @@
-[
+[ssh login logs]
+2024-01-01T15:10:05.762083-03:00 kali sshd[161815]: Accepted password for target from 192.168.92.133 port 41890 ssh2
+2024-01-01T15:10:05.765140-03:00 kali sshd[161815]: pam_unix(sshd:session): session opened for user target(uid=1001) by (uid=0)
+2024-01-01T15:10:05.780079-03:00 kali systemd-logind[578]: New session 59 of user target.
+2024-01-01T15:10:05.853156-03:00 kali sshd[161815]: pam_env(sshd:session): deprecated reading of user environment enabled
