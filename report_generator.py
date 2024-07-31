@@ -1,3 +1,23 @@
+"""
+This script communicates with the OpenAI GPT API to generate detailed reports based on user-provided logs.
+It allows the user to define the GPT model they want to consult, in this case, "gpt-4-turbo".
+The script generates a report in LaTeX code, analyzing security logs and identifying potential attacker activities.
+Due to the token limit imposed by OpenAI's API, the report is generated in parts. The script iterates through
+each identified step in the logs, expanding on each with additional details, vulnerabilities explored, and
+mitigation suggestions. The performance of the API interactions is also tracked, including the time taken
+for each step, the number of tokens used, and the estimated cost of the API calls.
+
+Key functionalities include:
+- Loading environment variables for API key configuration.
+- Sending requests to the GPT API and handling responses.
+- Extracting the number of steps from the initial analysis.
+- Generating and saving detailed LaTeX reports for each step.
+- Tracking and reporting the performance metrics, including time, tokens, and cost.
+
+The final output consists of a complete LaTeX report and an API performance report that details the usage
+metrics and costs for each part of the report generation process.
+"""
+
 import openai
 import re
 from dotenv import load_dotenv
