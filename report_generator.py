@@ -26,20 +26,20 @@ import openai
 import re
 from dotenv import load_dotenv
 import os
-import time
+import time as time_module  # Renamed to avoid conflict with any local variable
 
-# Carregar variáveis de ambiente do arquivo .env
+# Load environment variables from the .env file
 load_dotenv()
 
-# Defina sua chave da API aqui
+# Set your API key here
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
-# Preço por 1.000.000 tokens em dólares
-preco_input_por_milhao = 10.00  # $10.00 por 1M tokens de entrada
-preco_output_por_milhao = 30.00 # $30.00 por 1M tokens de saída
+# Price per 1,000,000 tokens in dollars
+input_per_million_price = 10.00  # $10.00 per 1M input tokens
+output_per_million_price = 30.00 # $30.00 per 1M output tokens
 
-# Função para enviar requisição para a API do GPT
-def enviar_para_gpt(messages, max_tokens=1500):
+# Function to send a request to the GPT API
+def send_to_gpt(messages, max_tokens=1500):
     response = openai.ChatCompletion.create(
         model="gpt-4-turbo",
         messages=messages,
@@ -49,136 +49,136 @@ def enviar_para_gpt(messages, max_tokens=1500):
     usage = response['usage']
     return content, usage
 
-# Função para extrair o número de passos da resposta
-def extrair_numero_de_passos(resposta):
-    match = re.search(r'\[n(?:\\?_)?passos:(\d+)\]', resposta)
+# Function to extract the number of steps from the response
+def extract_number_of_steps(response):
+    match = re.search(r'\[n(?:\\?_)?steps:(\d+)\]', response)  # Updated to n_steps
     if match:
         return int(match.group(1))
     else:
-        raise ValueError("Número de passos não encontrado na resposta.")
+        raise ValueError("Number of steps not found in the response.")
 
-# Função para salvar o conteúdo em um arquivo
-def salvar_em_arquivo(nome_arquivo, conteudo):
-    with open(nome_arquivo, 'w', encoding='utf-8') as file:
-        file.write(conteudo)
+# Function to save content to a file
+def save_to_file(file_name, content):
+    with open(file_name, 'w', encoding='utf-8') as file:
+        file.write(content)
 
-# Função principal para executar o processo
-def gerar_relatorio_detalhado(prompt, logs):
-    # Início do cronômetro total
-    inicio_tempo_total = time.time()
+# Main function to execute the process
+def generate_detailed_report(prompt, logs):
+    # Start the total timer
+    start_total_time = time_module.time()  # Using time_module to avoid conflict
 
-    # Prompt inicial para identificar os passos
-    prompt_inicial = [
+    # Initial prompt to identify the steps
+    initial_prompt = [
         {"role": "user", "content": prompt},
         {"role": "user", "content": logs}
     ]
     
-    # Envia a primeira requisição para obter o relatório inicial e o número de passos
-    resposta_inicial, usage_inicial = enviar_para_gpt(prompt_inicial)
-    print("Resposta inicial:", resposta_inicial)
+    # Send the first request to get the initial report and the number of steps
+    initial_response, initial_usage = send_to_gpt(initial_prompt)
+    print("Initial response:", initial_response)
     
-    # Cria a pasta para armazenar os arquivos
-    pasta_relatorio = 'relatorio_gerado_pelo_GPT'
-    os.makedirs(pasta_relatorio, exist_ok=True)
+    # Create the folder to store the files
+    report_folder = 'report_generated_by_GPT'
+    os.makedirs(report_folder, exist_ok=True)
     
-    # Salva a resposta inicial
-    salvar_em_arquivo(os.path.join(pasta_relatorio, 'relatorio_inicial.txt'), resposta_inicial)
+    # Save the initial response
+    save_to_file(os.path.join(report_folder, 'initial_report.txt'), initial_response)
     
-    # Extrai o número de passos da resposta inicial
-    numero_de_passos = extrair_numero_de_passos(resposta_inicial)
-    print(f"Número de passos identificados: {numero_de_passos}")
+    # Extract the number of steps from the initial response
+    number_of_steps = extract_number_of_steps(initial_response)
+    print(f"Number of identified steps: {number_of_steps}")
     
-    # Listas para armazenar o tempo de cada passo, tokens usados e custo
-    tempos_passos = []
-    tokens_usados = []
-    custos_passos = []
-    custo_total = 0.0
+    # Lists to store the time for each step, tokens used, and cost
+    step_times = []
+    tokens_used = []
+    step_costs = []
+    total_cost = 0.0
     
-    # Para cada passo, envia uma requisição de expansão e salva a resposta
-    for i in range(1, numero_de_passos + 1):
-        inicio_tempo_passo = time.time()  # Início do cronômetro para o passo i
+    # For each step, send an expansion request and save the response
+    for i in range(1, number_of_steps + 1):
+        start_step_time = time_module.time()  # Start the timer for step i
         
-        prompt_expansao = [
-            {"role": "assistant", "content": resposta_inicial},
-            {"role": "user", "content": f"Por favor, expanda a descrição do Passo {i}. Inclua detalhes sobre as ações realizadas, vulnerabilidades exploradas e sugestões de mitigação."}
+        expansion_prompt = [
+            {"role": "assistant", "content": initial_response},
+            {"role": "user", "content": f"Please expand the description of Step {i}. Include details about the actions taken, vulnerabilities exploited, and mitigation suggestions."}
         ]
-        resposta_expansao, usage_expansao = enviar_para_gpt(prompt_expansao)
-        print(f"\nExpansão do Passo {i}:\n{resposta_expansao}\n")
-        salvar_em_arquivo(os.path.join(pasta_relatorio, f'expansao_passo_{i}.txt'), resposta_expansao)
+        expansion_response, expansion_usage = send_to_gpt(expansion_prompt)
+        print(f"\nExpansion of Step {i}:\n{expansion_response}\n")
+        save_to_file(os.path.join(report_folder, f'expansion_step_{i}.txt'), expansion_response)
         
-        fim_tempo_passo = time.time()  # Fim do cronômetro para o passo i
-        duracao_passo = fim_tempo_passo - inicio_tempo_passo
-        tempos_passos.append(duracao_passo)  # Armazena o tempo do passo
+        end_step_time = time_module.time()  # End the timer for step i
+        step_duration = end_step_time - start_step_time
+        step_times.append(step_duration)  # Store the time for the step
         
-        # Calcula o custo para este passo
-        prompt_tokens = usage_expansao['prompt_tokens']
-        completion_tokens = usage_expansao['completion_tokens']
-        total_tokens = usage_expansao['total_tokens']
-        tokens_usados.append(total_tokens)
+        # Calculate the cost for this step
+        prompt_tokens = expansion_usage['prompt_tokens']
+        completion_tokens = expansion_usage['completion_tokens']
+        total_tokens = expansion_usage['total_tokens']
+        tokens_used.append(total_tokens)
 
-        custo_input = (prompt_tokens / 1000000) * preco_input_por_milhao
-        custo_output = (completion_tokens / 1000000) * preco_output_por_milhao
-        custo_passo = custo_input + custo_output
-        custos_passos.append(custo_passo)
-        custo_total += custo_passo
+        input_cost = (prompt_tokens / 1000000) * input_per_million_price
+        output_cost = (completion_tokens / 1000000) * output_per_million_price
+        step_cost = input_cost + output_cost
+        step_costs.append(step_cost)
+        total_cost += step_cost
         
-        print(f"Tempo para o Passo {i}: {duracao_passo:.2f} segundos")
-        print(f"Tokens usados no Passo {i}: {total_tokens}")
-        print(f"Custo do Passo {i}: ${custo_passo:.5f}")
+        print(f"Time for Step {i}: {step_duration:.2f} seconds")
+        print(f"Tokens used in Step {i}: {total_tokens}")
+        print(f"Cost of Step {i}: ${step_cost:.5f}")
     
-    # Fim do cronômetro total
-    fim_tempo_total = time.time()
-    duracao_total = fim_tempo_total - inicio_tempo_total
-    print(f"Tempo total para geração do relatório: {duracao_total:.2f} segundos")
-    print(f"Custo total estimado: ${custo_total:.5f}")
+    # End the total timer
+    end_total_time = time_module.time()
+    total_duration = end_total_time - start_total_time
+    print(f"Total time for generating the report: {total_duration:.2f} seconds")
+    print(f"Estimated total cost: ${total_cost:.5f}")
     
-    # Exibir tempos individuais e tokens usados
-    for i, (tempo, tokens, custo) in enumerate(zip(tempos_passos, tokens_usados, custos_passos), start=1):
-        print(f"Tempo do Passo {i}: {tempo:.2f} segundos")
-        print(f"Tokens usados no Passo {i}: {tokens}")
-        print(f"Custo estimado do Passo {i}: ${custo:.5f}")
+    # Display individual times and tokens used
+    for i, (time, tokens, cost) in enumerate(zip(step_times, tokens_used, step_costs), start=1):
+        print(f"Time for Step {i}: {time:.2f} seconds")
+        print(f"Tokens used in Step {i}: {tokens}")
+        print(f"Estimated cost of Step {i}: ${cost:.5f}")
     
-    # Salvar relatório de performance
-    relatorio_performance = os.path.join(pasta_relatorio, 'api_performance_report.txt')
-    with open(relatorio_performance, 'w', encoding='utf-8') as report_file:
-        report_file.write(f"Tempo total para geração do relatório: {duracao_total:.2f} segundos\n")
-        report_file.write(f"Custo total estimado: ${custo_total:.5f}\n\n")
-        for i, (tempo, tokens, custo) in enumerate(zip(tempos_passos, tokens_usados, custos_passos), start=1):
-            report_file.write(f"Passo {i}:\n")
-            report_file.write(f"  Tempo: {tempo:.2f} segundos\n")
-            report_file.write(f"  Tokens usados: {tokens}\n")
-            report_file.write(f"  Custo estimado: ${custo:.5f}\n\n")
+    # Save performance report
+    performance_report = os.path.join(report_folder, 'api_performance_report.txt')
+    with open(performance_report, 'w', encoding='utf-8') as report_file:
+        report_file.write(f"Total time for generating the report: {total_duration:.2f} seconds\n")
+        report_file.write(f"Estimated total cost: ${total_cost:.5f}\n\n")
+        for i, (time, tokens, cost) in enumerate(zip(step_times, tokens_used, step_costs), start=1):
+            report_file.write(f"Step {i}:\n")
+            report_file.write(f"  Time: {time:.2f} seconds\n")
+            report_file.write(f"  Tokens used: {tokens}\n")
+            report_file.write(f"  Estimated cost: ${cost:.5f}\n\n")
 
-# Ler os logs do arquivo 'logs_experimento1'
-def ler_logs_do_arquivo(nome_arquivo):
+# Read the logs from the 'logs_experiment1' file
+def read_logs_from_file(file_name):
     try:
-        with open(nome_arquivo, 'r', encoding='utf-8') as file:
+        with open(file_name, 'r', encoding='utf-8') as file:
             return file.read()
     except Exception as e:
-        raise RuntimeError(f"Erro ao ler o arquivo {nome_arquivo}: {e}")
+        raise RuntimeError(f"Error reading the file {file_name}: {e}")
 
-# Caminho para o arquivo de logs
-nome_arquivo_logs = 'logs_experimento2'
+# Path to the log file
+log_file_name = 'logs_experiment2'
 
-# Lê os logs do arquivo
-logs = ler_logs_do_arquivo(nome_arquivo_logs)
+# Read the logs from the file
+logs = read_logs_from_file(log_file_name)
 
-# Definição do prompt com instruções detalhadas
+# Define the prompt with detailed instructions
 prompt = (
-    "Você receberá uma série de logs de segurança da informação, originários de diversas fontes como firewalls, sistemas de monitoramento de banco de dados, registros de servidores web e ferramentas de detecção de intrusão. "
-    "Sua tarefa será analisar esses logs em ordem cronológica para identificar e descrever as atividades de um possível atacante através de um relatório em LaTeX. Por favor, concentre-se em:\n\n"
-    "- Descrever as ações do ataque como o exemplo:\n\"[timestamp] O atacante acessou o sistema tal, abriu o arquivo tal, subiu uma webshell, se autenticou no serviço tal, ...\"\n"
-    "- Determinar a sequência cronológica dos eventos registrados nos logs.\n"
-    "- Identificar padrões anômalos ou atividades suspeitas em cada conjunto de logs.\n"
-    "- Explicar a relevância de cada atividade suspeita em relação ao cenário geral do ataque.\n"
-    "- Sugerir quais técnicas e táticas o atacante pode estar usando, com base nos padrões observados.\n"
-    "- Avaliar potenciais vulnerabilidades ou falhas de segurança que o atacante explorou.\n"
-    "- Propor medidas de resposta ou mitigação para os incidentes identificados.\n\n"
-    "- Escape underlines no código LaTeX.\n"
-    "- Não diga nada além do código latex do relatório.\n"
-    "- Não precisa gerar um preâmbulo, já comece a partir de \\begin{document}.\n"
-    "- Diga o número de passos do ataque no seguinte formato: [n_passos:X], onde X é o número de passos. Por exemplo, se no ataque teve uma varredura de portas, uma injeção SQL e uma escalada de privilégios, então X = 3, resultando em [n_passos:3]. Após dizer o número de passos, escreva uma array com os nomes dos passos, para justificar sua resposta. Por exemplo, [n_passos:3] [varredura_de_portas, injecao_SQL, escalada_de_privilegios]"
+    "You will receive a series of information security logs originating from various sources such as firewalls, database monitoring systems, web server logs, and intrusion detection tools. "
+    "Your task is to analyze these logs in chronological order to identify and describe the activities of a possible attacker through a LaTeX report. Please focus on:\n\n"
+    "- Describing the attack actions, like in the example:\n\"[timestamp] The attacker accessed the system, opened a file, uploaded a webshell, authenticated with a service, ...\"\n"
+    "- Determining the chronological sequence of events recorded in the logs.\n"
+    "- Identifying anomalous patterns or suspicious activities in each set of logs.\n"
+    "- Explaining the relevance of each suspicious activity in the context of the overall attack scenario.\n"
+    "- Suggesting which techniques and tactics the attacker might be using based on the observed patterns.\n"
+    "- Evaluating potential vulnerabilities or security flaws that the attacker exploited.\n"
+    "- Proposing response or mitigation measures for the identified incidents.\n\n"
+    "- Escape underlines in the LaTeX code.\n"
+    "- Do not say anything other than the LaTeX report code.\n"
+    "- No need to generate a preamble, just start from \\begin{document}.\n"
+    "- Indicate the number of attack steps in the following format: [n_steps:X], where X is the number of steps. For example, if the attack involved port scanning, SQL injection, and privilege escalation, then X = 3, resulting in [n_steps:3]. After stating the number of steps, write an array with the names of the steps to justify your response. For example, [n_steps:3] [port_scan, sql_injection, privilege_escalation]"
 )
 
-# Gera o relatório detalhado
-gerar_relatorio_detalhado(prompt, logs)
+# Generate the detailed report
+generate_detailed_report(prompt, logs)
