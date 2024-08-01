@@ -14,6 +14,10 @@ Key functionalities include:
 - Generating and saving detailed LaTeX reports for each step.
 - Tracking and reporting the performance metrics, including time, tokens, and cost.
 
+Requirements:
+- A file containing the logs must be present in the directory.
+- A .env file containing the API key must also be present for the script to access the OpenAI API.
+
 The final output consists of a complete LaTeX report and an API performance report that details the usage
 metrics and costs for each part of the report generation process.
 """
